@@ -1,11 +1,12 @@
 package dev.elfa.bootcampjavaasterixapi.service;
 
-import dev.elfa.bootcampjavaasterixapi.model.Character;
 import dev.elfa.bootcampjavaasterixapi.DTO.CharacterDto;
+import dev.elfa.bootcampjavaasterixapi.model.Character;
 import dev.elfa.bootcampjavaasterixapi.repository.AsterixRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CharacterService {
@@ -17,12 +18,16 @@ public class CharacterService {
         this.uuidGenerator = uuidGenerator;
     }
 
+    public List<Character> getCharacters() {
+        return this.asterixRepository.findAll();
+    }
+
     public List<Character> getCharacters(String profession) {
-        if (profession != null && !profession.isEmpty()) {
-            return this.asterixRepository.findCharactersByProfession(profession);
-        } else {
-            return this.asterixRepository.findAll();
-        }
+        return this.asterixRepository.findCharactersByProfession(profession);
+    }
+
+    public Optional<Character> getCharacter(String id) {
+        return this.asterixRepository.findById(id);
     }
 
     public void addCharacter(CharacterDto characterDto) {
