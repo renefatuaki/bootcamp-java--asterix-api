@@ -34,6 +34,9 @@ class CharacterServiceTest {
         // Check if method got called
         verify(mockAsterixRepo).findAll();
 
+        // Check if the method was called exactly once
+        verify(mockAsterixRepo, times(1)).findAll();
+
         // Check expected result
         assertEquals(characterList, result);
     }
@@ -53,6 +56,9 @@ class CharacterServiceTest {
         // Check if method got called
         verify(mockAsterixRepo).findById("1");
 
+        // Check if the method was called exactly once
+        verify(mockAsterixRepo, times(1)).findById("1");
+
         // Check expected result
         assertEquals(Optional.of(expectedCharacter), result);
     }
@@ -69,6 +75,9 @@ class CharacterServiceTest {
 
         // Run test
         characterService.updateCharacter("1", characterDto);
+
+        // Check if the method was called exactly once
+        verify(mockAsterixRepo, times(1)).save(any(Character.class));
 
         // Check if method got called
         verify(mockAsterixRepo).save(any(Character.class));
@@ -88,5 +97,8 @@ class CharacterServiceTest {
 
         // Check if method got called
         verify(mockAsterixRepo).deleteById("1");
+
+        // Check if the method was called exactly once
+        verify(mockAsterixRepo, times(1)).deleteById("1");
     }
 }
