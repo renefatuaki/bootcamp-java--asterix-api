@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 
 class CharacterServiceTest {
     private final AsterixRepository mockAsterixRepo = mock(AsterixRepository.class);
-    private final UUIDGenerator uuidGenerator = mock(UUIDGenerator.class);
+    private final IdService idService = mock(IdService.class);
 
 
     @Test
@@ -26,7 +26,7 @@ class CharacterServiceTest {
         when(mockAsterixRepo.findAll()).thenReturn(characterList);
 
         // Service
-        CharacterService characterService = new CharacterService(mockAsterixRepo, uuidGenerator);
+        CharacterService characterService = new CharacterService(mockAsterixRepo, idService);
 
         // Run test
         List<Character> result = characterService.getCharacters();
@@ -45,7 +45,7 @@ class CharacterServiceTest {
         when(mockAsterixRepo.findById("1")).thenReturn(Optional.of(expectedCharacter));
 
         // Service
-        CharacterService characterService = new CharacterService(mockAsterixRepo, uuidGenerator);
+        CharacterService characterService = new CharacterService(mockAsterixRepo, idService);
 
         // Run test
         Optional<Character> result = characterService.getCharacter("1");
@@ -65,7 +65,7 @@ class CharacterServiceTest {
         when(mockAsterixRepo.save(any(Character.class))).thenReturn(expectedCharacter);
 
         // Service
-        CharacterService characterService = new CharacterService(mockAsterixRepo, uuidGenerator);
+        CharacterService characterService = new CharacterService(mockAsterixRepo, idService);
 
         // Run test
         characterService.updateCharacter("1", characterDto);
@@ -81,7 +81,7 @@ class CharacterServiceTest {
         when(mockAsterixRepo.save(any(Character.class))).thenReturn(expectedCharacter);
 
         // Service
-        CharacterService characterService = new CharacterService(mockAsterixRepo, uuidGenerator);
+        CharacterService characterService = new CharacterService(mockAsterixRepo, idService);
 
         // Run test
         characterService.deleteCharacter("1");

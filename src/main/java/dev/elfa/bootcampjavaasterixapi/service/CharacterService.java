@@ -11,11 +11,11 @@ import java.util.Optional;
 @Service
 public class CharacterService {
     private final AsterixRepository asterixRepository;
-    private final UUIDGenerator uuidGenerator;
+    private final IdService idService;
 
-    public CharacterService(AsterixRepository asterixRepository, UUIDGenerator uuidGenerator) {
+    public CharacterService(AsterixRepository asterixRepository, IdService idService) {
         this.asterixRepository = asterixRepository;
-        this.uuidGenerator = uuidGenerator;
+        this.idService = idService;
     }
 
     public List<Character> getCharacters() {
@@ -31,7 +31,7 @@ public class CharacterService {
     }
 
     public void addCharacter(CharacterDto characterDto) {
-        Character character = new Character(uuidGenerator.generateUUID(), characterDto.name(), characterDto.age(), characterDto.profession());
+        Character character = new Character(idService.generateUUID(), characterDto.name(), characterDto.age(), characterDto.profession());
         this.asterixRepository.save(character);
     }
 
