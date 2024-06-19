@@ -21,7 +21,7 @@ public class AsterixController {
     public Optional<CharacterDto> getCharacter(@PathVariable String id) {
         Optional<Character> character = characterService.getCharacter(id);
 
-        return Optional.of(CharacterDto.transform(character));
+        return character.map(CharacterDto::transform);
     }
 
     @GetMapping("/characters")
